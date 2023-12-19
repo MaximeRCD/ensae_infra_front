@@ -2,13 +2,14 @@ from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
+# Initialisation of the datebase and the 
 db = SQLAlchemy() # db intitialized here
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///test.db"
 db.init_app(app)
 
-
-class Todo(db.Model) : 
+# Definition of the database : our list of ingredients 
+class Ingredients(db.Model) : 
     id = db.Column(db.Integer, primary_key = True)
     content = db.Column(db.String(200), nullable=False)
     completed = db.Column(db.Integer, default=0)
@@ -16,26 +17,57 @@ class Todo(db.Model) :
 
     def __repr__(self): 
         return '<Task %r>' %self.id
-    
-@app.route('/', methods= ['POST', 'GET'])
 
+
+######### POST NEW #########    
+@app.route('/', methods= ['POST', 'GET'])
 def index():
+    # if we want to upload a new task 
     if request.method == 'POST': 
         task_content = request.form['content']
-        new_task = Todo(content=task_content)
+        new_task = Ingredients(content=task_content)
         
         try: 
             db.session.add(new_task)
             db.session.commit()
             return redirect('/')
+        
         except: 
             return 'There was an issue adding your task'
-    
+    # show the current values in the database
     else : 
-        tasks = Todo.query.order_by(Todo.date_created).all()
+        tasks = Ingredients.query.order_by(Ingredients.date_created).all()
         return render_template('index.html', tasks=tasks) 
-# no need to specify thexie name of the folder since we named it "templates"
+# no need to specify the name of the folder since we named it "templates"
 
-if __name__ == "__main__" : 
+######### DELETE #########
+@app.route('/delete/<int:id>')
+def delete(id) : 
+    task_to_delete = Ingredients.query.get_or_404(id) 
+    try : 
+        db.session.delete(task_to_delete)
+        db.session.commit()
+        return redirect('/')
+    except : 
+        return 'There was a problem deleting our task'
+    
+######### UPDATE #########
+@app.route('/update/<int:id>', methods= ['POST', 'GET'])
+def update(id) : 
+    task = Ingredients.query.get_or_404(id)
+    # if we want to upload the changes
+    if request.method == 'POST' : 
+        task.content = request.form['content']
+        try : 
+            db.session.commit()
+            return redirect('/')
+        except : 
+            return "There was an issue updatding your task"
+    # if you click on the button update of the home page
+    else :
+        return render_template('update.html', task=task)
+        
+
+if __name__ == "__main__" :  
     app.run(debug= True)
      
