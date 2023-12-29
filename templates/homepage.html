@@ -1,0 +1,51 @@
+{% extends 'base.html'%}
+
+{% block head%}
+  
+{% endblock %}
+
+{% block body%}
+
+<h1>Marmython</h1>
+<h4>Please add the recipes you want to cook and the number of person you are cooking for.</h4>
+
+<!-- Display the recipes added, if so -->
+{% if recipes|length < 1 %}
+    <h4>There is no reciepe refered yet. Please add one.</h4>
+    {% else %}
+    <table>
+        <thead>  
+            <tr>
+                <th>Recipe</th>
+                <th>Option</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for recipe in recipes %}
+            <tr>
+                <td>{{ recipe }}</td>
+                <td>
+                    <!-- Button to delete the recipe -->
+                    <a href="/delete/{{loop.index0}}">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+
+
+<!-- Button to add a recipe to the list -->
+<form action="/" method="POST">
+    <input type="text", name="recipe">
+    <input type="submit" value="Add a recipe">
+</form>
+
+<!-- Button to aggregate the ingredients of the recipies -->
+<form action="/get_ingredient" method="POST">
+    <input type="int", name="nbr_person">
+    <input type="submit" value="Aggregate list of ingredients">
+</form>
+
+{% endblock %}
