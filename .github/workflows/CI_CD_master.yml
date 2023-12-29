@@ -14,7 +14,7 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "STAGING_API_ADDRESS=${{ secrets.STAGING_DB_ADDRESS }}" > .env
+          echo "STAGING_API_ADDRESS=${{ secrets.STAGING_API_ADDRESS }}" > .env
 
       - name: Build Docker image
         run: |
