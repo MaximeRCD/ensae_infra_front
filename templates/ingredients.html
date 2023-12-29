@@ -1,0 +1,36 @@
+{% extends 'base.html'%}
+
+{% block head%}
+  
+{% endblock %}
+
+{% block body%}
+<div class=""content>
+    <h1>Ingrédients</h1>
+    <table>
+        <thead>  
+            <tr>
+                <th>Ingrédient</th>
+                <th>Quantité</th>
+                <th>Unité</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for ingredient in list_ingredients %}
+            <tr>
+                <td>{{ ingredient.name }}</td>
+                <td>{{ ingredient.quantity }}</td>
+                <td>{{ ingredient.unit }}</td>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<form action="/" method="GET">
+    <input type="submit" value="Go back">
+</form>
+
+{% endblock %}

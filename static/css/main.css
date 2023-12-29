@@ -1,0 +1,16 @@
+header {
+    width: 50%
+}
+
+h1 {
+    color:darkorange;
+    font-size:60px;
+    border: 2px dashed red;
+    width : 25%
+}
+
+body {
+    margin: 20; 
+    font-family:'Times New Roman', Times, serif;
+    background-color: #fefae0;
+}   
