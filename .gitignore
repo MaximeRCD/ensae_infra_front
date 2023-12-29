@@ -161,3 +161,7 @@ cython_debug/
 
 *discover*
 static
+
+mongo_data/*
+.DS_Store
+docker-compose.yaml
