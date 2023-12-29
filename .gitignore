@@ -163,3 +163,4 @@ cython_debug/
 static
 
 mongo_data/*
+.DS_Store
