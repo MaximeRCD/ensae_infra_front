@@ -18,11 +18,11 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build --tag maxlebic1/ensae_front_api:latest .
+          docker build --tag maxlebic1/ensae_infra_front:latest .
         env:
           DOCKER_BUILDKIT: 1
 
       - name: Push Docker image
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-          docker push maxlebic1/ensae_infra_api:latest
+          docker push maxlebic1/ensae_infra_front:latest
