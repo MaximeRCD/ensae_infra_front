@@ -1,0 +1,24 @@
+version: '3'
+services:
+  mongo:
+    image: mongo:latest
+    volumes:
+      - ./mongo_data:/data/db
+    ports:
+      - "27017:27017"
+
+  api:
+    image: maxlebic1/ensae_infra_api:latest
+    # image: api_refactored:latest
+    volumes:
+      - ./:/client_api
+    ports:
+      - "8000:8000"
+    restart: always
+
+  front:
+    #image: maxlebic1/ensae_infra_api:latest
+    image: marmython_front:latest
+    ports:
+      - "5000:5000"
+    restart: always
