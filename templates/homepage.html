@@ -7,45 +7,41 @@
 {% block body%}
 
 <h1>Marmython</h1>
-<h4>Please add the recipes you want to cook and the number of person you are cooking for.</h4>
+<h2>Add the recipes you want to cook.</h2>
 
 <!-- Display the recipes added, if so -->
 {% if recipes|length < 1 %}
     <h4>There is no reciepe refered yet. Please add one.</h4>
-    {% else %}
-    <table>
-        <thead>  
-            <tr>
-                <th>Recipe</th>
-                <th>Option</th>
-            </tr>
-        </thead>
-
+{% else %}
+    <h4>Your recipes : </h4>
+    <table>                               
         <tbody>
             {% for recipe in recipes %}
             <tr>
                 <td>{{ recipe }}</td>
                 <td>
                     <!-- Button to delete the recipe -->
-                    <a href="/delete/{{loop.index0}}">Delete</a>
+                    <a class="bouton_del" href="/delete/{{loop.index0}}">Delete</a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
-    {% endif %}
-
+{% endif %}
 
 <!-- Button to add a recipe to the list -->
 <form action="/" method="POST">
-    <input type="text", name="recipe">
-    <input type="submit" value="Add a recipe">
+    <input class="bouton_text" type="text", name="recipe">
+    <input class="bouton_action" type="submit" value="Add the recipe">
 </form>
+
+<h2>Add the number of person you cook for.</h4>
 
 <!-- Button to aggregate the ingredients of the recipies -->
 <form action="/get_ingredient" method="POST">
-    <input type="int", name="nbr_person">
-    <input type="submit" value="Aggregate list of ingredients">
+    <input class="bouton_text" width= 3rem type="int", name="nbr_person">
+    <br>
+    <input class="bouton_agg" type="submit" value="Get the ingredients you need">
 </form>
 
 {% endblock %}

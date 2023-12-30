@@ -1,16 +1,113 @@
-header {
-    width: 50%
+/* css reset */
+* {
+    margin: 0; 
+    padding: 0; 
+    box-sizing: border-box;
+    background-color: #fefae0;
 }
+
+/* ######## commun css rules ######## */
 
 h1 {
     color:darkorange;
-    font-size:60px;
-    border: 2px dashed red;
-    width : 25%
+    font: 6rem "Impact";
+    margin: 3rem 3rem 0rem 10rem;
 }
 
-body {
-    margin: 20; 
-    font-family:'Times New Roman', Times, serif;
-    background-color: #fefae0;
-}   
+h2 {
+    color:rgb(91, 51, 2);
+    font: 3rem "Impact";
+    margin: 0rem 3rem 0rem 10rem;
+}
+
+h4 {
+    color:rgb(91, 51, 2);
+    font: 1.5rem "Impact";
+    margin: 0rem 3rem 0.5rem 10rem;
+}
+
+.bouton_agg {
+    margin-top: 1rem;
+    margin-bottom: 5rem;
+    margin-left: 10rem;
+    color:rgb(91, 51, 2);
+    font: 1rem "Impact";
+    background-color:  darkorange;
+    width : 14rem;
+    height: 3rem 
+
+}
+
+/* ######## homepage.html ######## */
+.bouton_text {
+    margin-left: 10rem;
+    margin-right: 1rem;
+    color:rgb(91, 51, 2);
+    font: 1rem "Impact";
+    background-color:  #cfcbb5;
+    width: 20rem;
+    height: 2rem 
+}
+
+.bouton_action {
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    color:rgb(91, 51, 2);
+    font: 1rem "Impact";
+    background-color:  #cfcbb5;
+    width : 8rem;
+    height: 2rem 
+}
+
+.bouton_del {
+    color:rgb(91, 51, 2);
+    margin-left: 2rem;
+}
+
+/* ######## ingredients.html ######## */
+
+table {
+    margin-left: 12rem;
+    margin-bottom: 1rem; 
+    color: darkorange;
+    font: 1rem "Impact"
+}
+
+.first_col_fr {
+    text-align: right;
+    padding: 0 2px;
+    color:darkorange;
+    font: 1.5rem "Impact";
+}
+
+.second_col_fr {
+    text-align: center;
+    padding: 0 2px;
+    color:darkorange;
+    font: 1.5rem "Impact";
+}
+
+.third_col_fr {
+    text-align: left;
+    padding: 0 2px;
+    color:darkorange;
+    font: 1.5rem "Impact";
+}
+
+.first_col {
+    text-align: right;
+    padding: 0 2px;
+    color:rgb(91, 51, 2);
+}
+
+.second_col {
+    text-align: center;
+    padding: 0 2px;
+    color:rgb(91, 51, 2);
+}
+
+.third_col {
+    text-align: left;
+    padding: 0 2px;
+    color:rgb(91, 51, 2);
+}
