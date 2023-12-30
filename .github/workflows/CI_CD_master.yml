@@ -1,0 +1,28 @@
+name: CI_CD_master
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Create .env file
+        run: |
+          echo "STAGING_API_ADDRESS=${{ secrets.STAGING_DB_ADDRESS }}" > .env
+
+      - name: Build Docker image
+        run: |
+          docker build --tag maxlebic1/ensae_front_api:latest .
+        env:
+          DOCKER_BUILDKIT: 1
+
+      - name: Push Docker image
+        run: |
+          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          docker push maxlebic1/ensae_infra_api:latest
