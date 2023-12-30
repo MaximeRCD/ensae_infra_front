@@ -161,6 +161,8 @@ cython_debug/
 
 *discover*
 static
+test_yn.py
+
 
 mongo_data/*
 .DS_Store
