@@ -19,9 +19,9 @@ def homepage():
     # Add the new recipe from the html home page
     if request.method == 'POST': 
         new_recipe = request.form['recipe']
-        recipes.append(str(new_recipe))
-        print(recipes)
-        
+        if new_recipe != "" : 
+            recipes.append(str(new_recipe))
+            
     return render_template('homepage.html', recipes=recipes) 
 
 ########### Delete one recipe in the home page #############
@@ -34,32 +34,65 @@ def delete(index_recipe) :
 @app.route('/get_ingredient', methods=['POST'])
 def get_ingredient():
     
+    # Only if you click to the "Aggregate"
     if request.method == 'POST': 
         
-        #---- 1 - RETRIVE THE DATA FORM THE HTML HOME PAGE -----#
-        recipe_list = recipes
-        print(recipe_list)
-        nb_pers = int(request.form["nbr_person"])
-        
-        #----- 2 - FETCH THE DATA RELATED FROM THE API ------#
-        # Endpoint to which the request will be forwarded
-        url = shopping_list_api_endpoints
-        
-        # Headers for the request
-        headers = {
-            'accept': 'application/json',
-            'Content-Type': 'application/json'
-                    }
+        # Only if the number of person is specified
+        if request.form["nbr_person"] !=  "" :
+            
+            #---- 1 - RETRIVE THE DATA FORM THE HTML HOME PAGE -----#
+            recipe_list = recipes
+            nb_pers = int(request.form["nbr_person"])
+            
+            #----- 2 - FETCH THE DATA RELATED FROM THE API ------#
+            # Endpoint to which the request will be forwarded
+            url = shopping_list_api_endpoints
+            
+            # Headers for the request
+            headers = {
+                'accept': 'application/json',
+                'Content-Type': 'application/json'
+                        }
 
-        # Forward the request to the specified URL
-        ingredients = requests.post(url,params={'nb_pers':nb_pers}, headers=headers, json=recipe_list).json()
+            # Forward the request to the specified URL
+            ingredients = requests.post(url,
+                                        params={'nb_pers':nb_pers},
+                                        headers=headers,
+                                        json=recipe_list).json()
+            
+            # Formating the quantity and the unit
+            ingredients_f = formating_ingredients(ingredients)
+            
+            #----- 4 - DISPLAY THE LIST OF INGREDIENTS ON the HTML INGREDIENTS -----#       
+            return render_template('ingredients.html', list_ingredients=ingredients_f) 
+    
+        # Stay on the home page
+        else :
+            return redirect('/')
         
-        print(ingredients)
-        
-        #----- 4 - DISPLAY THE LIST OF INGREDIENTS ON the HTML INGREDIENTS -----#       
-        return render_template('ingredients.html', list_ingredients=ingredients) 
+def formating_ingredients(ingredients : dict) -> dict:
+    '''
+         This function formats the quantities and units of the 
+         aggregates list of ingredients.  
+    '''
+    
+    for ingredient in ingredients : 
+        #  Formating the quantity
+        ingredient["quantity"] = round(ingredient["quantity"], 2) 
+        if int(ingredient["quantity"]) == 0 : 
+            ingredient["quantity"] = ""
+             
+        #  Formating the units
+        if ingredient["unit"].lower() == "g" : 
+            ingredient["unit"] = "gramme(s)" 
+        if ingredient["unit"].lower()  == "kg" : 
+            ingredient["unit"] = "kilogramme(s)" 
+        if ingredient["unit"].lower()  == "l" : 
+            ingredient["unit"] = "litre(s)"
+        if ingredient["unit"].lower()  == "cl" : 
+            ingredient["unit"] = "centilitre(s)" 
+    return ingredients
           
-
 if __name__ == "__main__" :
     app.run(debug= True)
      

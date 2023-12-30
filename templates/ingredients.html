@@ -5,32 +5,33 @@
 {% endblock %}
 
 {% block body%}
-<div class=""content>
-    <h1>Ingrédients</h1>
-    <table>
-        <thead>  
-            <tr>
-                <th>Ingrédient</th>
-                <th>Quantité</th>
-                <th>Unité</th>
-            </tr>
-        </thead>
 
-        <tbody>
-            {% for ingredient in list_ingredients %}
-            <tr>
-                <td>{{ ingredient.name }}</td>
-                <td>{{ ingredient.quantity }}</td>
-                <td>{{ ingredient.unit }}</td>
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-</div>
+<h1>Marmython</h1>
+<h2>Ingredients</h2>
+
+<table>
+    <thead>  
+        <tr>
+            <th class="first_col_fr">Ingredient</th>
+            <th class="second_col_fr">Quantity</th>
+            <th class="third_col_fr">Unit</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for ingredient in list_ingredients %}
+        <tr>
+            <td class="first_col">{{ ingredient.name }}</td>
+            <td class="second_col">{{ ingredient.quantity }}</td>
+            <td class="third_col">{{ ingredient.unit }}</td>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 
 <form action="/" method="GET">
-    <input type="submit" value="Go back">
+    <input class="bouton_agg" type="submit" value="Go back">
 </form>
 
 {% endblock %}
