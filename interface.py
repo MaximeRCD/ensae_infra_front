@@ -37,8 +37,8 @@ def get_ingredient():
     # Only if you click to the "Aggregate"
     if request.method == 'POST': 
         
-        # Only if the number of person is specified
-        if request.form["nbr_person"] !=  "" :
+        # Only if the number of person is specified and at least one recipe is specified
+        if request.form["nbr_person"] !=  ""  and recipes != []:
             
             #---- 1 - RETRIVE THE DATA FORM THE HTML HOME PAGE -----#
             recipe_list = recipes
